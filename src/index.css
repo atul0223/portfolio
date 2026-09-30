@@ -402,7 +402,7 @@ main {
 .section-title h2 {
   font-family: var(--display);
   font-weight: 800;
-  font-size: clamp(2.6rem, 8vw, 6rem);
+  font-size: clamp(2rem, 10vw, 6rem);
   line-height: 0.95;
   letter-spacing: -0.04em;
   margin: 8px 0 12px;
@@ -1007,7 +1007,7 @@ main {
 .contact-big {
   font-family: var(--display);
   font-weight: 800;
-  font-size: clamp(2.2rem, 9vw, 8.5rem);
+  font-size: clamp(2rem, 9vw, 8.5rem);
   line-height: 0.9;
   letter-spacing: -0.05em;
   margin: 16px 0 24px;
