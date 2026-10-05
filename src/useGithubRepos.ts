@@ -34,7 +34,7 @@ const fromRepo = (r: Repo): Project => {
     name: r.name,
     color: '',
     repoUrl: r.html_url,
-    liveUrl: r.homepage || undefined,
+    liveUrl: (meta?.liveUrl !== undefined ? meta.liveUrl : r.homepage) || undefined,
     stars: r.stargazers_count,
     updatedAt: r.updated_at,
     language: r.language ?? undefined,
@@ -44,6 +44,7 @@ const fromRepo = (r: Repo): Project => {
 // Used when the GitHub API is unreachable or rate-limited (60 req/hr unauthenticated).
 const fallback: Project[] = Object.entries(projectMeta).map(([name, meta]) => ({
   ...meta,
+  liveUrl: meta.liveUrl ?? undefined,
   name,
   color: '',
   repoUrl: `https://github.com/${GITHUB_USER}/${name}`,

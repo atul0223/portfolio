@@ -109,6 +109,8 @@ export type ProjectMeta = {
   stack: string[]
   category: 'Mobile' | 'Web'
   featured?: boolean
+  /** Overrides the repo's GitHub "homepage" link. null = no working demo, hide the link. */
+  liveUrl?: string | null
 }
 
 /** Hand-written details layered on top of the live GitHub data, keyed by repo name. */
@@ -139,6 +141,7 @@ export const projectMeta: Record<string, ProjectMeta> = {
     stack: ['React', 'TypeScript', 'Node.js', 'Express', 'MongoDB', 'Socket.IO', 'Tailwind CSS'],
     category: 'Web',
     featured: true,
+    liveUrl: 'https://loveable-mu.vercel.app',
   },
   'Social-media-platform': {
     title: 'InstantMedia',
@@ -150,6 +153,7 @@ export const projectMeta: Record<string, ProjectMeta> = {
     ],
     stack: ['React', 'JavaScript', 'Node.js', 'Express', 'MongoDB', 'Socket.IO'],
     category: 'Web',
+    liveUrl: null, // instantmedia.vercel.app no longer exists
   },
   'library-management-system': {
     title: 'Library Management System',
@@ -162,6 +166,7 @@ export const projectMeta: Record<string, ProjectMeta> = {
     stack: ['React', 'TypeScript', 'Node.js', 'Express', 'MongoDB', 'JWT'],
     category: 'Web',
     featured: true,
+    liveUrl: 'https://library-management-system-opal-phi.vercel.app',
   },
   'note-taking-application': {
     title: 'Note-Taking App',
@@ -169,6 +174,7 @@ export const projectMeta: Record<string, ProjectMeta> = {
     highlights: ['Full development lifecycle, idea to deployment', 'Full-stack TypeScript'],
     stack: ['React', 'TypeScript', 'Node.js', 'Express', 'MongoDB'],
     category: 'Web',
+    liveUrl: 'https://note-taking-application-umber.vercel.app',
   },
   DemoProject: {
     title: 'Demo Project',
@@ -176,6 +182,7 @@ export const projectMeta: Record<string, ProjectMeta> = {
     highlights: ['React frontend with Node.js backend', 'Deployed on Vercel'],
     stack: ['React', 'JavaScript', 'Node.js'],
     category: 'Web',
+    liveUrl: 'https://demo-project-one-sigma.vercel.app',
   },
   'DemoTask3-': {
     title: 'Internship Screening Task',
@@ -183,8 +190,9 @@ export const projectMeta: Record<string, ProjectMeta> = {
     highlights: ['Built in TypeScript'],
     stack: ['TypeScript'],
     category: 'Web',
+    liveUrl: null, // Vercel build (demo-task3) is currently failing
   },
 }
 
 /** Repos hidden from the grid (e.g. the profile README repo). */
-export const hiddenRepos = new Set([GITHUB_USER])
+export const hiddenRepos = new Set([GITHUB_USER, 'portfolio'])
