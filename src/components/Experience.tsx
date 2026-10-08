@@ -8,7 +8,7 @@ export default function Experience() {
 
   return (
     <section id="experience" className="section">
-      <SectionTitle kicker="04" title="Experience" sub="Click a role to expand" />
+      <SectionTitle kicker="05" title="Experience" sub="Click a role to expand" />
       <div className="exp">
         {experience.map((e, i) => (
           <motion.div

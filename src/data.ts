@@ -102,6 +102,42 @@ export const education = {
   period: '2022 — 2026',
 }
 
+export const clientWork = {
+  client: 'Vardaan Healthcare & Diagnostics',
+  location: 'NAS College Road, Meerut',
+  brief:
+    'Three homepage directions for a diagnostics clinic offering home sample collection — same content and goal (get patients to call reception), three distinct visual languages, prepared for the client to choose from.',
+  concepts: [
+    {
+      name: 'Clinical Calm',
+      url: 'https://sample-sample-1.vercel.app/',
+      image: '/work/vardaan-1.jpg',
+      mood: 'Dark clinical',
+      font: 'Geist',
+      swatches: ['#0e1614', '#5cc8ad', '#e8efec'],
+      note: 'Quiet dark-green palette with a reception info card up front — phone, service and address at a glance.',
+    },
+    {
+      name: 'Night Lab',
+      url: 'https://sample-sample-2.vercel.app/',
+      image: '/work/vardaan-2.jpg',
+      mood: 'Dark & immersive',
+      font: 'Manrope',
+      swatches: ['#0a0e17', '#7b8cff', '#eef0f7'],
+      note: 'Navy and periwinkle with a 3D DNA helix and sample-tube visuals, ending on an oversized reception number.',
+    },
+    {
+      name: 'Editorial Light',
+      url: 'https://sample-sample-3.vercel.app/',
+      image: '/work/vardaan-3.jpg',
+      mood: 'Light editorial',
+      font: 'Cabinet Grotesk + Satoshi',
+      swatches: ['#f2f3f0', '#151515', '#d0412a'],
+      note: 'Large editorial type, a single red accent and full-bleed lab photography for a premium, magazine feel.',
+    },
+  ],
+}
+
 export type ProjectMeta = {
   title: string
   tagline: string
@@ -195,4 +231,5 @@ export const projectMeta: Record<string, ProjectMeta> = {
 }
 
 /** Repos hidden from the grid (e.g. the profile README repo). */
-export const hiddenRepos = new Set([GITHUB_USER, 'portfolio'])
+// 'sample' holds the Vardaan concepts, shown in the Client work section instead.
+export const hiddenRepos = new Set([GITHUB_USER, 'portfolio', 'sample'])

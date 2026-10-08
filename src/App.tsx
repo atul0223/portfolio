@@ -4,6 +4,7 @@ import Nav from './components/Nav'
 import Hero from './components/Hero'
 import About from './components/About'
 import Projects, { ProjectModal } from './components/Projects'
+import ClientWork from './components/ClientWork'
 import Skills from './components/Skills'
 import Experience from './components/Experience'
 import Contact from './components/Contact'
@@ -24,6 +25,7 @@ export default function App() {
       <main>
         <About />
         <Projects projects={projects} live={live} onSelect={setSelected} />
+        <ClientWork />
         <Skills />
         <Experience />
         <Contact />

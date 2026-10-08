@@ -663,6 +663,164 @@ main {
   margin: 28px 0 18px;
 }
 
+/* ---------- client work ---------- */
+.client-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 48px;
+  align-items: end;
+  padding-bottom: 32px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--line);
+}
+
+.client-head h3 {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(1.6rem, 3.6vw, 2.6rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin: 8px 0 0;
+}
+
+.client-head p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.concepts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.concept {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.browser {
+  display: block;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9);
+  transition: transform 0.5s var(--ease), border-color 0.3s;
+}
+
+.browser:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+}
+
+.browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.browser-bar > span:not(.browser-url) {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #3a342e;
+}
+
+.browser:hover .browser-bar > span:nth-child(1) {
+  background: #ff5f57;
+}
+.browser:hover .browser-bar > span:nth-child(2) {
+  background: #febc2e;
+}
+.browser:hover .browser-bar > span:nth-child(3) {
+  background: #28c840;
+}
+
+.browser-url {
+  flex: 1;
+  min-width: 0;
+  margin-left: 8px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--muted);
+  font-size: 0.68rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* The frame is a size container so the image can scroll exactly to its own bottom edge. */
+.browser-view {
+  aspect-ratio: 16 / 11;
+  overflow: hidden;
+  container-type: size;
+}
+
+.browser-view img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 6s cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+.browser:hover .browser-view img,
+.browser:focus-visible .browser-view img {
+  transform: translateY(calc(-100% + 100cqh));
+  transition-duration: 6s;
+}
+
+.concept-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.swatches {
+  display: flex;
+}
+
+.swatches span {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  margin-left: -4px;
+}
+
+.concept h4 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  margin: 6px 0 6px;
+}
+
+.concept p {
+  margin: 0 0 18px;
+  color: var(--muted);
+  flex: 1;
+}
+
+.concept-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.concept-foot .btn {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+}
+
 /* ---------- skills ---------- */
 .skills .section:first-child {
   padding-bottom: 0;
@@ -1402,6 +1560,14 @@ html {
   }
   .about {
     grid-template-columns: 1fr;
+  }
+  .client-head {
+    grid-template-columns: 1fr;
+  }
+  .concepts {
+    grid-template-columns: 1fr;
+    max-width: 560px;
+    gap: 48px;
   }
   .about-photo {
     max-width: 280px;

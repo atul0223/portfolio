@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const links = ['about', 'projects', 'skills', 'experience', 'contact']
+const links = ['about', 'projects', 'work', 'skills', 'experience', 'contact']
 
 export default function Nav() {
   const [active, setActive] = useState('')

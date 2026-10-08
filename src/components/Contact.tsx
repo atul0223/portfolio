@@ -17,7 +17,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="section contact">
-      <span className="mono kicker">(05) Contact</span>
+      <span className="mono kicker">(06) Contact</span>
       <h2 className="contact-big">
         <motion.span
           initial={{ y: '105%' }}

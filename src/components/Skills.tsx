@@ -27,7 +27,7 @@ export default function Skills() {
   return (
     <section id="skills" className="skills">
       <div className="section">
-        <SectionTitle kicker="03" title="Toolkit" sub="What I reach for to ship end-to-end products" />
+        <SectionTitle kicker="04" title="Toolkit" sub="What I reach for to ship end-to-end products" />
       </div>
       <Marquee items={rowsOfSkills[0]} />
       <Marquee items={rowsOfSkills[1]} reverse />
