@@ -102,7 +102,7 @@ export const education = {
   period: '2022 — 2026',
 }
 
-export const clientWork = {
+export const clientWork = [{
   client: 'Vardaan Healthcare & Diagnostics',
   location: 'NAS College Road, Meerut',
   brief:
@@ -136,7 +136,50 @@ export const clientWork = {
       note: 'Large editorial type, a single red accent and full-bleed lab photography for a premium, magazine feel.',
     },
   ],
-}
+}, {
+  client: 'Meerut Airgun',
+  location: 'Ganganagar, Meerut',
+  brief:
+    'Four website directions for a sporting airgun and accessories business — exploring product photography, interactive showcases and bold typography across distinct visual identities.',
+  concepts: [
+    {
+      name: 'Industrial Precision',
+      url: 'https://air-gun-sample.vercel.app/',
+      image: '/work/meerut-airgun-1.jpg',
+      mood: 'Dark industrial',
+      font: 'Syne + JetBrains Mono',
+      swatches: ['#090b0c', '#ff6b00', '#00ff88'],
+      note: 'Oversized type and orange accents frame a detailed product showcase with interactive mechanical demonstrations.',
+    },
+    {
+      name: 'Carbon & Crimson',
+      url: 'https://airgunsample-meerut-airgun-v4.vercel.app/',
+      image: '/work/meerut-airgun-2.jpg',
+      mood: 'Cinematic & bold',
+      font: 'Archivo + IBM Plex Mono',
+      swatches: ['#0c0c0d', '#dc2626', '#ecebe7'],
+      note: 'Full-bleed product photography, condensed headlines and red accents lead into an illustrated catalogue and shop enquiries.',
+    },
+    {
+      name: 'Absolute Precision',
+      url: 'https://air-gun-sample-qfos.vercel.app/',
+      image: '/work/meerut-airgun-3.jpg',
+      mood: 'Immersive technical',
+      font: 'Archivo + IBM Plex Mono',
+      swatches: ['#090b0c', '#e8540c', '#f4f4f4'],
+      note: 'A centred photographic hero, orange display type and interactive scope and target sections create an immersive product experience.',
+    },
+    {
+      name: 'Field & Form',
+      url: 'https://air-gun-sample-1goc.vercel.app/',
+      image: '/work/meerut-airgun-4.jpg',
+      mood: 'Cinematic editorial',
+      font: 'Cabinet Grotesk + JetBrains Mono',
+      swatches: ['#09090b', '#ea580c', '#fafafa'],
+      note: 'Warm outdoor photography opens a spacious editorial layout with an asymmetric product grid and a clean specifications section.',
+    },
+  ],
+}]
 
 export type ProjectMeta = {
   title: string

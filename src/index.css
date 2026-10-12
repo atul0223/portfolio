@@ -664,6 +664,10 @@ main {
 }
 
 /* ---------- client work ---------- */
+.client-group + .client-group {
+  margin-top: clamp(64px, 8vw, 112px);
+}
+
 .client-head {
   display: grid;
   grid-template-columns: 1fr 1fr;
