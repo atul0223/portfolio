@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { education, experience } from '../data'
 import SectionTitle from './SectionTitle'
+import { spotlight } from '../spotlight'
 
 export default function Experience() {
   const [open, setOpen] = useState(0)
@@ -14,6 +15,7 @@ export default function Experience() {
           <motion.div
             key={e.company}
             className={open === i ? 'exp-item open' : 'exp-item'}
+            onPointerMove={spotlight}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}

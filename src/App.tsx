@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
@@ -8,20 +8,26 @@ import ClientWork from './components/ClientWork'
 import Skills from './components/Skills'
 import Experience from './components/Experience'
 import Contact from './components/Contact'
+import Preloader from './components/Preloader'
 import { Cursor, FitText } from './components/ui'
 import { useGithubRepos, type Project } from './useGithubRepos'
+import { useLenis } from './useLenis'
 
 export default function App() {
   const { scrollYProgress } = useScroll()
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 25 })
   const { projects, live } = useGithubRepos()
   const [selected, setSelected] = useState<Project | null>(null)
+  const [ready, setReady] = useState(false)
+  const onLoaded = useCallback(() => setReady(true), [])
+  useLenis()
 
   return (
     <>
+      <Preloader onDone={onLoaded} />
       <motion.div className="progress" style={{ scaleX: progress }} />
       <Nav />
-      <Hero projects={projects} onSelect={setSelected} />
+      <Hero projects={projects} onSelect={setSelected} ready={ready} />
       <main>
         <About />
         <Projects projects={projects} live={live} onSelect={setSelected} />

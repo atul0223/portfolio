@@ -7,7 +7,7 @@
   --muted: #9a9187;
   --accent: #ff6b3d;
   --accent-2: #ffd166;
-  --display: 'Syne', 'Inter', system-ui, sans-serif;
+  --display: 'Syne', 'Geist', system-ui, sans-serif;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   color-scheme: dark;
 }
@@ -25,7 +25,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Geist', system-ui, sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -167,11 +167,17 @@ em {
 }
 
 /* ---------- hero ---------- */
-/* Grows taller than the viewport if the text needs it, instead of pushing text under the nav. */
+/* Tall scroll track; the sticky stage inside it stays pinned while the camera flies through the system. */
 .hero {
   position: relative;
-  min-height: 100vh;
-  min-height: 100svh;
+  height: 320vh;
+}
+
+.hero-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -189,7 +195,7 @@ em {
   background: radial-gradient(circle at 50% 45%, rgba(255, 107, 61, 0.35), transparent 30%), var(--bg);
 }
 
-.hero::after {
+.hero-sticky::after {
   content: '';
   position: absolute;
   inset: auto 0 0 0;
@@ -840,21 +846,7 @@ main {
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee 38s linear infinite;
-}
-
-.marquee.reverse .marquee-track {
-  animation-direction: reverse;
-}
-
-.marquee:hover .marquee-track {
-  animation-play-state: paused;
-}
-
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
+  will-change: transform;
 }
 
 .marquee-item {
@@ -1622,11 +1614,6 @@ html {
   .links a::after {
     display: none;
   }
-  /* Keep the 3D system above the text block instead of hidden behind it. */
-  .scene {
-    height: 62% !important;
-    mask-image: linear-gradient(#000 70%, transparent);
-  }
   .hero-hint {
     font-size: 0.7rem;
     top: 76px;
@@ -1657,5 +1644,380 @@ html {
     animation: none !important;
     transition: none !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* =====================================================================
+   Premium layer — smooth scroll, preloader, hero chapters, 3D effects
+   ===================================================================== */
+
+/* ---------- smooth scroll (Lenis) ---------- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ---------- preloader ---------- */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(16px, 4vw, 48px);
+  pointer-events: none;
+}
+
+.preloader-name {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(3rem, 14vw, 13rem);
+  line-height: 0.86;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.preloader-name .line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.04em;
+}
+
+.preloader-name .line > span {
+  display: block;
+}
+
+.preloader-foot {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.preloader-count {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.preloader-bar {
+  height: 1px;
+  margin-top: 12px;
+  background: var(--line);
+}
+
+.preloader-bar span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform-origin: left;
+}
+
+/* ---------- hero chapters ---------- */
+.hero-overlay {
+  will-change: transform, opacity;
+}
+
+.hero-chapter {
+  position: absolute;
+  z-index: 3;
+  left: clamp(16px, 4vw, 48px);
+  bottom: clamp(72px, 14vh, 140px);
+  max-width: min(680px, calc(100% - 32px));
+  pointer-events: none;
+}
+
+.hero-chapter.right {
+  left: auto;
+  right: clamp(16px, 4vw, 48px);
+  text-align: right;
+}
+
+.hero-chapter h2 {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 7.4vw, 7rem);
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+  margin: 14px 0 18px;
+}
+
+.hero-chapter p {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  max-width: 440px;
+}
+
+.hero-chapter.right p {
+  margin-left: auto;
+}
+
+.hero-cue {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  bottom: 22px;
+  width: fit-content;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.hero-cue span {
+  letter-spacing: 0.3em;
+}
+
+.hero-cue i {
+  width: 1px;
+  height: 34px;
+  background: linear-gradient(var(--accent), transparent);
+  animation: cue 2.2s var(--ease) infinite;
+  transform-origin: top;
+}
+
+@keyframes cue {
+  0% {
+    transform: scaleY(0);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(1) translateY(100%);
+    opacity: 0;
+  }
+}
+
+.hero-bar {
+  position: absolute;
+  z-index: 3;
+  inset: auto 0 0 0;
+  height: 2px;
+  background: var(--line);
+}
+
+.hero-bar span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transform-origin: left;
+}
+
+/* ---------- buttons, cursor ---------- */
+.magnetic {
+  display: inline-block;
+}
+
+.btn.primary {
+  box-shadow: 0 10px 40px -10px rgba(255, 107, 61, 0.65);
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: var(--accent);
+  pointer-events: none;
+  z-index: 301;
+}
+
+/* ---------- 3D tilt with glare ---------- */
+.tilt {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.tilt-glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 20px;
+  mix-blend-mode: screen;
+}
+
+.concept .tilt-glare {
+  border-radius: 14px;
+}
+
+/* ---------- spotlight hover ---------- */
+.pillar,
+.exp-item {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.pillar::before,
+.exp-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 107, 61, 0.14), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+
+.pillar:hover::before,
+.exp-item:hover::before {
+  opacity: 1;
+}
+
+/* ---------- section titles: word-by-word reveal ---------- */
+.section-title h2 .word {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+  margin-right: 0.24em;
+  vertical-align: top;
+}
+
+.section-title h2 .word > span {
+  display: inline-block;
+  transform-origin: left bottom;
+}
+
+.section-rule {
+  display: block;
+  height: 1px;
+  margin: 4px 0 16px;
+  background: linear-gradient(90deg, var(--accent), var(--line) 30%, transparent);
+  transform-origin: left;
+}
+
+/* ---------- skills sphere ---------- */
+.skill-wrap {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) 1.4fr;
+  gap: clamp(24px, 4vw, 64px);
+  align-items: center;
+  padding-top: 48px;
+}
+
+.skill-wrap .skill-cols {
+  grid-template-columns: repeat(2, 1fr);
+  padding-top: 0;
+}
+
+.skill-sphere {
+  position: relative;
+}
+
+.skill-sphere::before {
+  content: '';
+  position: absolute;
+  inset: 18%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 107, 61, 0.22), transparent 70%);
+  filter: blur(20px);
+}
+
+.sphere {
+  position: relative;
+  aspect-ratio: 1;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.sphere-tag {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(0.85rem, 1.1vw, 1rem);
+  white-space: nowrap;
+  color: #b8afa4;
+  will-change: transform, opacity;
+  transition: color 0.3s;
+}
+
+.sphere-tag.front {
+  color: var(--text);
+}
+
+.sphere-tag:nth-child(5n).front {
+  color: var(--accent);
+}
+
+/* ---------- contact glow ---------- */
+.contact {
+  position: relative;
+  isolation: isolate;
+}
+
+.contact-orb {
+  position: absolute;
+  z-index: -1;
+  right: -10%;
+  top: 6%;
+  width: min(520px, 70vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, rgba(255, 209, 102, 0.55), rgba(255, 107, 61, 0.45) 35%, transparent 70%);
+  filter: blur(60px);
+  opacity: 0.55;
+  animation: orb 14s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes orb {
+  to {
+    transform: translate(-18%, 14%) scale(1.15);
+  }
+}
+
+@media (max-width: 900px) {
+  .hero {
+    height: 260vh;
+  }
+  .skill-wrap {
+    grid-template-columns: 1fr;
+  }
+  .sphere {
+    max-width: 360px;
+  }
+  .hero-cue {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-chapter,
+  .hero-chapter.right {
+    left: 16px;
+    right: 16px;
+    text-align: left;
+    bottom: 64px;
+  }
+  .hero-chapter.right p {
+    margin-left: 0;
+  }
+  .skill-wrap .skill-cols {
+    grid-template-columns: 1fr;
   }
 }

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState, type CSSProperties } from 'react'
 import { AnimatePresence, motion, useMotionValue, useSpring } from 'framer-motion'
 import type { Project } from '../useGithubRepos'
+import { lenis } from '../useLenis'
 import ProjectCover from './ProjectCover'
 import SectionTitle from './SectionTitle'
 import { Roll } from './ui'
@@ -22,9 +23,11 @@ export function ProjectModal({
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose()
     window.addEventListener('keydown', onKey)
     document.body.style.overflow = 'hidden'
+    lenis?.stop()
     return () => {
       window.removeEventListener('keydown', onKey)
       document.body.style.overflow = ''
+      lenis?.start()
     }
   }, [onClose])
 
@@ -45,6 +48,7 @@ export function ProjectModal({
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
+        data-lenis-prevent
         aria-label={project.title}
       >
         <button className="close" onClick={onClose} aria-label="Close">

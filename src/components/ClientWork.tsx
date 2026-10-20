@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { clientWork } from '../data'
 import SectionTitle from './SectionTitle'
-import { Roll } from './ui'
+import { Roll, Tilt } from './ui'
 
 export default function ClientWork() {
   return (
@@ -33,18 +33,20 @@ export default function ClientWork() {
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ delay: i * 0.12, duration: 0.6 }}
               >
-                <a href={c.url} target="_blank" rel="noreferrer" className="browser" aria-label={`Open ${c.name} live`}>
-                  <div className="browser-bar">
-                    <span />
-                    <span />
-                    <span />
-                    <span className="browser-url mono">{c.url.replace(/^https:\/\//, '').replace(/\/$/, '')}</span>
-                  </div>
-                  {/* Tall screenshot that scrolls inside the frame on hover. */}
-                  <div className="browser-view">
-                    <img src={c.image} alt={`${c.name} homepage concept`} loading="lazy" />
-                  </div>
-                </a>
+                <Tilt max={7}>
+                  <a href={c.url} target="_blank" rel="noreferrer" className="browser" aria-label={`Open ${c.name} live`}>
+                    <div className="browser-bar">
+                      <span />
+                      <span />
+                      <span />
+                      <span className="browser-url mono">{c.url.replace(/^https:\/\//, '').replace(/\/$/, '')}</span>
+                    </div>
+                    {/* Tall screenshot that scrolls inside the frame on hover. */}
+                    <div className="browser-view">
+                      <img src={c.image} alt={`${c.name} homepage concept`} loading="lazy" />
+                    </div>
+                  </a>
+                </Tilt>
 
                 <div className="concept-meta">
                   <span className="mono kicker">Concept {String(i + 1).padStart(2, '0')}</span>

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { profile } from '../data'
+import { Magnetic } from './ui'
 
 export default function Contact() {
   const [copied, setCopied] = useState<string | null>(null)
@@ -17,6 +18,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="section contact">
+      <div className="contact-orb" aria-hidden />
       <span className="mono kicker">(06) Contact</span>
       <h2 className="contact-big">
         <motion.span
@@ -38,20 +40,22 @@ export default function Contact() {
       </h2>
       <p className="contact-sub">Open to full-time roles, freelance work and collaborations.</p>
 
-      <button className="email" onClick={() => copy(profile.email)}>
-        <span>{profile.email}</span>
-        <AnimatePresence mode="wait">
-          <motion.span
-            key={copied === profile.email ? 'y' : 'n'}
-            className="copy-state mono"
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-          >
-            {copied === profile.email ? '✓ copied' : 'click to copy'}
-          </motion.span>
-        </AnimatePresence>
-      </button>
+      <Magnetic strength={0.15}>
+        <button className="email" onClick={() => copy(profile.email)}>
+          <span>{profile.email}</span>
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={copied === profile.email ? 'y' : 'n'}
+              className="copy-state mono"
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+            >
+              {copied === profile.email ? '✓ copied' : 'click to copy'}
+            </motion.span>
+          </AnimatePresence>
+        </button>
+      </Magnetic>
 
       <p className="alt-email">
         <span className="mono dim">Alternate</span>

@@ -21,7 +21,8 @@ export const profile = {
   altEmail: 'atulsharma9487@gmail.com',
   github: 'https://github.com/atul0223',
   linkedin: 'https://www.linkedin.com/in/atul-sharma-9b183b250/',
-  avatar: 'https://avatars.githubusercontent.com/u/216735811?v=4',
+  // Bundled locally: avatars.githubusercontent.com is blocked on some Indian ISPs.
+  avatar: '/atul.jpg',
   resume: '/Atul_Sharma_Resume.pdf',
   languages: ['English', 'Hindi'],
 }
@@ -187,7 +188,7 @@ export const clientWork = [{
   concepts: [
     {
       name: 'Midnight Tower',
-      url: 'https://farah-merhi-sample-1.vercel.app/',
+      url: 'https://realestatesample-farah-merhi-websit.vercel.app/',
       image: '/work/farah-merhi-1.jpg',
       mood: 'Dark & cinematic',
       font: 'Cormorant Garamond + Manrope',
@@ -310,4 +311,12 @@ export const projectMeta: Record<string, ProjectMeta> = {
 /** Repos hidden from the grid (e.g. the profile README repo). */
 // Sample repos hold client concepts, shown in the Client work section instead.
 // 'sample' was renamed to 'sample_websites' on GitHub; both kept so the grid stays clean.
-export const hiddenRepos = new Set([GITHUB_USER, 'portfolio', 'sample', 'sample_websites', 'farah-merhi-samples'])
+export const hiddenRepos = new Set([
+  GITHUB_USER,
+  'portfolio',
+  'sample',
+  'sample_websites',
+  'farah-merhi-samples',
+  'air_gun_sample',
+  'real_estate_sample',
+])

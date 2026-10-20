@@ -2,7 +2,8 @@ import type { ReactNode } from 'react'
 import { motion } from 'framer-motion'
 import { pillars, profile, stats } from '../data'
 import SectionTitle from './SectionTitle'
-import { CountUp, Roll } from './ui'
+import { spotlight } from '../spotlight'
+import { CountUp, Magnetic, Roll, Tilt } from './ui'
 
 const icons: Record<string, ReactNode> = {
   Web: (
@@ -38,8 +39,10 @@ export default function About() {
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <img src={profile.avatar} alt={profile.name} loading="lazy" />
-          <span className="mono">{profile.location}</span>
+          <Tilt max={8}>
+            <img src={profile.avatar} alt={profile.name} loading="lazy" />
+            <span className="mono">{profile.location}</span>
+          </Tilt>
         </motion.div>
 
         <div className="about-text">
@@ -56,12 +59,16 @@ export default function About() {
             </motion.p>
           ))}
           <div className="cta">
-            <a href={profile.resume} download className="btn primary">
-              <Roll>Download résumé ↓</Roll>
-            </a>
-            <a href="#contact" className="btn">
-              <Roll>Get in touch →</Roll>
-            </a>
+            <Magnetic>
+              <a href={profile.resume} download className="btn primary">
+                <Roll>Download résumé ↓</Roll>
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a href="#contact" className="btn">
+                <Roll>Get in touch →</Roll>
+              </a>
+            </Magnetic>
           </div>
           <p className="mono dim">Speaks {profile.languages.join(' · ')}</p>
         </div>
@@ -88,6 +95,7 @@ export default function About() {
           <motion.div
             key={p.title}
             className="pillar"
+            onPointerMove={spotlight}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
