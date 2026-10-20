@@ -104,6 +104,40 @@ export const education = {
 }
 
 export const clientWork = [{
+  client: 'Dr. Farah Merhi — Invest in Dubai',
+  location: 'KASH Real Estate, Dubai',
+  brief:
+    'Three 3D scroll-driven website directions for a Dubai real estate investment advisor — pre-launch projects, joint ventures and purchase groups — each bilingual (English / Arabic with RTL) and ending in a WhatsApp enquiry flow.',
+  concepts: [
+    {
+      name: 'Midnight Tower',
+      url: 'https://realestatesample-farah-merhi-websit.vercel.app/',
+      image: '/work/farah-merhi-1.jpg',
+      mood: 'Dark & cinematic',
+      font: 'Cormorant Garamond + Manrope',
+      swatches: ['#0b0a08', '#c9a86a', '#f4efe6'],
+      note: 'A gold Three.js tower in a night-lit skyline comes apart floor by floor as you scroll, framing the tax-free and pre-launch story.',
+    },
+    {
+      name: 'Palm Maquette',
+      url: 'https://farah-merhi-sample-2.vercel.app/',
+      image: '/work/farah-merhi-2.jpg',
+      mood: 'Light editorial',
+      font: 'Instrument Serif + Geist',
+      swatches: ['#f4efe6', '#8b6a3a', '#c9ddd9'],
+      note: 'The camera dives from satellite view as villas rise across a 3D Palm island, followed by stacking service cards, a bento grid and an interactive coast map.',
+    },
+    {
+      name: 'Maison Diamond',
+      url: 'https://farah-merhi-sample-3.vercel.app/',
+      image: '/work/farah-merhi-3.jpg',
+      mood: 'Emerald luxury',
+      font: 'Bodoni Moda + Jost',
+      swatches: ['#050807', '#0e2720', '#d6b476'],
+      note: 'A refractive brilliant-cut diamond shatters into facets mid-scroll, leading into a hover-preview service index, a pinned area scroller and an invitation-card membership.',
+    },
+  ],
+}, {
   client: 'Vardaan Healthcare & Diagnostics',
   location: 'NAS College Road, Meerut',
   brief:
@@ -178,40 +212,6 @@ export const clientWork = [{
       font: 'Cabinet Grotesk + JetBrains Mono',
       swatches: ['#09090b', '#ea580c', '#fafafa'],
       note: 'Warm outdoor photography opens a spacious editorial layout with an asymmetric product grid and a clean specifications section.',
-    },
-  ],
-}, {
-  client: 'Dr. Farah Merhi — Invest in Dubai',
-  location: 'KASH Real Estate, Dubai',
-  brief:
-    'Three 3D scroll-driven website directions for a Dubai real estate investment advisor — pre-launch projects, joint ventures and purchase groups — each bilingual (English / Arabic with RTL) and ending in a WhatsApp enquiry flow.',
-  concepts: [
-    {
-      name: 'Midnight Tower',
-      url: 'https://realestatesample-farah-merhi-websit.vercel.app/',
-      image: '/work/farah-merhi-1.jpg',
-      mood: 'Dark & cinematic',
-      font: 'Cormorant Garamond + Manrope',
-      swatches: ['#0b0a08', '#c9a86a', '#f4efe6'],
-      note: 'A gold Three.js tower in a night-lit skyline comes apart floor by floor as you scroll, framing the tax-free and pre-launch story.',
-    },
-    {
-      name: 'Palm Maquette',
-      url: 'https://farah-merhi-sample-2.vercel.app/',
-      image: '/work/farah-merhi-2.jpg',
-      mood: 'Light editorial',
-      font: 'Instrument Serif + Geist',
-      swatches: ['#f4efe6', '#8b6a3a', '#c9ddd9'],
-      note: 'The camera dives from satellite view as villas rise across a 3D Palm island, followed by stacking service cards, a bento grid and an interactive coast map.',
-    },
-    {
-      name: 'Maison Diamond',
-      url: 'https://farah-merhi-sample-3.vercel.app/',
-      image: '/work/farah-merhi-3.jpg',
-      mood: 'Emerald luxury',
-      font: 'Bodoni Moda + Jost',
-      swatches: ['#050807', '#0e2720', '#d6b476'],
-      note: 'A refractive brilliant-cut diamond shatters into facets mid-scroll, leading into a hover-preview service index, a pinned area scroller and an invitation-card membership.',
     },
   ],
 }]
