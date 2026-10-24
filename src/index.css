@@ -1,3 +1,33 @@
+/* Metric-matched fallbacks (values from @capsizecss/metrics): text occupies the same space before
+   and after the web fonts load, so the font swap causes no layout shift. Arimo / Liberation are
+   Arial-metric-compatible stand-ins on Linux & Android. */
+@font-face {
+  font-family: 'Syne Fallback';
+  src: local('Arial'), local('Arimo'), local('Liberation Sans'), local('Helvetica');
+  size-adjust: 98.47%;
+  ascent-override: 93.93%;
+  descent-override: 27.93%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Geist Fallback';
+  src: local('Arial'), local('Arimo'), local('Liberation Sans'), local('Helvetica');
+  size-adjust: 104.76%;
+  ascent-override: 95.94%;
+  descent-override: 28.16%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono Fallback';
+  src: local('Courier New'), local('Cousine'), local('Liberation Mono'), local('Courier');
+  size-adjust: 99.98%;
+  ascent-override: 102.02%;
+  descent-override: 30%;
+  line-gap-override: 0%;
+}
+
 :root {
   --bg: #0b0a09;
   --bg-2: #141210;
@@ -7,7 +37,7 @@
   --muted: #9a9187;
   --accent: #ff6b3d;
   --accent-2: #ffd166;
-  --display: 'Syne', 'Geist', system-ui, sans-serif;
+  --display: 'Syne Variable', 'Syne Fallback', system-ui, sans-serif;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   color-scheme: dark;
 }
@@ -25,7 +55,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: 'Geist', system-ui, sans-serif;
+  font-family: 'Geist Variable', 'Geist Fallback', system-ui, sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -51,7 +81,7 @@ em {
 }
 
 .mono {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'JetBrains Mono Variable', 'JetBrains Mono Fallback', monospace;
   font-size: 0.8rem;
   letter-spacing: 0.02em;
 }
@@ -126,7 +156,7 @@ em {
 }
 
 .links a sup {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'JetBrains Mono Variable', 'JetBrains Mono Fallback', monospace;
   font-size: 0.6rem;
   color: var(--accent);
   margin-right: 4px;
@@ -158,7 +188,7 @@ em {
 
 .menu-btn {
   display: none;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'JetBrains Mono Variable', 'JetBrains Mono Fallback', monospace;
   font-size: 0.8rem;
   text-transform: uppercase;
   padding: 8px 14px;
@@ -193,6 +223,25 @@ em {
 
 .scene-fallback {
   background: radial-gradient(circle at 50% 45%, rgba(255, 107, 61, 0.35), transparent 30%), var(--bg);
+}
+
+/* Static stand-in for the 3D scene; the canvas fades in over it once loaded. */
+.scene-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+}
+
+.scene {
+  animation: scene-in 1.2s var(--ease) both;
+}
+
+@keyframes scene-in {
+  from {
+    opacity: 0;
+  }
 }
 
 .hero-sticky::after {
@@ -271,7 +320,7 @@ em {
 .hero-meta {
   display: flex;
   justify-content: space-between;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'JetBrains Mono Variable', 'JetBrains Mono Fallback', monospace;
   font-size: 0.8rem;
   color: var(--muted);
   text-transform: uppercase;
@@ -298,9 +347,10 @@ em {
   letter-spacing: -0.05em;
   text-transform: uppercase;
   margin: 0;
+  /* Always one word per line. Syne is so wide it wraps anyway, but the narrower fallback font
+     would fit both words on one line — and the swap would then shift the whole hero. */
   display: flex;
-  flex-wrap: wrap;
-  column-gap: 0.25em;
+  flex-direction: column;
 }
 
 .hero-name .line {
@@ -385,14 +435,17 @@ em {
 
 .planet-label span {
   color: var(--muted);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'JetBrains Mono Variable', 'JetBrains Mono Fallback', monospace;
   font-size: 0.68rem;
 }
 
 /* ---------- sections ---------- */
+/* clip (not hidden): stops decorative glows like .contact-orb widening the mobile layout viewport,
+   without creating a scroll container that would break position: sticky inside. */
 main {
   position: relative;
   z-index: 1;
+  overflow-x: clip;
 }
 
 .section {
@@ -536,7 +589,7 @@ main {
 .live {
   color: #7bd88f;
   font-size: 0.7rem;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'JetBrains Mono Variable', 'JetBrains Mono Fallback', monospace;
   font-weight: 400;
   letter-spacing: 0;
 }
@@ -660,7 +713,7 @@ main {
   padding: 4px 11px;
   border-radius: 999px;
   border: 1px solid var(--line);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'JetBrains Mono Variable', 'JetBrains Mono Fallback', monospace;
   font-size: 0.72rem;
   color: var(--muted);
 }
@@ -1304,6 +1357,13 @@ main {
   animation: grain 1s steps(4) infinite;
 }
 
+/* On phones, keep the texture but drop the endlessly repainting effects. */
+@media (hover: none) {
+  .grain {
+    animation: none;
+  }
+}
+
 @keyframes grain {
   25% {
     transform: translate(-3%, 2%);
@@ -1681,7 +1741,8 @@ html.lenis body {
 .preloader-name {
   font-family: var(--display);
   font-weight: 800;
-  font-size: clamp(3rem, 14vw, 13rem);
+  /* Same sizing as .hero-name: at 14vw "SHARMA." was ~105% of the screen and lost its period. */
+  font-size: clamp(2.2rem, 11.5vw, 12rem);
   line-height: 0.86;
   letter-spacing: -0.05em;
   text-transform: uppercase;
@@ -1892,7 +1953,9 @@ html.lenis body {
   overflow: hidden;
   padding-bottom: 0.12em;
   margin-bottom: -0.12em;
-  margin-right: 0.24em;
+  /* Right padding keeps Syne's overhanging last glyph inside the clip. */
+  padding-right: 0.08em;
+  margin-right: 0.16em;
   vertical-align: top;
 }
 
@@ -1948,7 +2011,7 @@ html.lenis body {
   position: absolute;
   top: 50%;
   left: 50%;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'JetBrains Mono Variable', 'JetBrains Mono Fallback', monospace;
   font-size: clamp(0.85rem, 1.1vw, 1rem);
   white-space: nowrap;
   color: #b8afa4;
@@ -1988,6 +2051,13 @@ html.lenis body {
 @keyframes orb {
   to {
     transform: translate(-18%, 14%) scale(1.15);
+  }
+}
+
+@media (hover: none) {
+  .contact-orb {
+    animation: none;
+    filter: blur(40px);
   }
 }
 

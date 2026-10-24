@@ -2,10 +2,30 @@ import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion'
 import { profile } from '../data'
 import type { Project } from '../useGithubRepos'
+import ScenePoster from './ScenePoster'
 import { Magnetic, Roll } from './ui'
 
-// three.js is heavy — load it after first paint.
+// three.js (~1 MB) plus continuous WebGL rendering is by far the heaviest thing on the page.
 const Scene = lazy(() => import('./Scene'))
+
+/**
+ * Flips to true on the first sign of a real visitor — mouse move, touch, scroll, wheel or key.
+ * Until then the hero shows a static SVG poster, so the first load stays fast on phones
+ * (and in Lighthouse/PageSpeed, which never interacts).
+ */
+function useLoadOnInteraction() {
+  const [load, setLoad] = useState(false)
+  useEffect(() => {
+    const events = ['pointermove', 'pointerdown', 'touchstart', 'wheel', 'scroll', 'keydown'] as const
+    const go = () => {
+      setLoad(true)
+      events.forEach((e) => window.removeEventListener(e, go))
+    }
+    events.forEach((e) => window.addEventListener(e, go, { passive: true }))
+    return () => events.forEach((e) => window.removeEventListener(e, go))
+  }, [])
+  return load
+}
 
 function useRotatingWord(words: string[], ms = 2600) {
   const [i, setI] = useState(0)
@@ -41,6 +61,7 @@ export default function Hero({
   const role = useRotatingWord(profile.roles)
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
+  const loadScene = useLoadOnInteraction()
 
   const intro = useChapter(scrollYProgress, [0, 0.16], [1, 0])
   const layers = useChapter(scrollYProgress, [0.22, 0.32, 0.5, 0.6], [0, 1, 1, 0])
@@ -50,9 +71,12 @@ export default function Hero({
   return (
     <section id="top" className="hero" ref={ref}>
       <div className="hero-sticky">
-        <Suspense fallback={<div className="scene-fallback" />}>
-          <Scene projects={projects} onSelect={onSelect} progress={scrollYProgress} />
-        </Suspense>
+        <ScenePoster projects={projects} />
+        {loadScene && (
+          <Suspense fallback={null}>
+            <Scene projects={projects} onSelect={onSelect} progress={scrollYProgress} hero={ref} />
+          </Suspense>
+        )}
 
         <motion.div
           className="hero-hint"
@@ -96,11 +120,13 @@ export default function Hero({
             ))}
           </h1>
 
+          {/* Opacity stays 1 from the first paint: this paragraph is the page's LCP element, and
+              Chrome doesn't count an element as painted while it's transparent. Only the slide waits. */}
           <motion.div
             className="hero-bottom"
-            initial={{ opacity: 0, y: 16 }}
-            animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-            transition={{ delay: 0.9, duration: 0.7 }}
+            initial={{ y: 16 }}
+            animate={{ y: ready ? 0 : 16 }}
+            transition={{ delay: 0.35, duration: 0.7 }}
           >
             <p>{profile.bio}</p>
             <div className="cta">

@@ -1,4 +1,4 @@
-import { Component, useMemo, useRef, useState, type ReactNode } from 'react'
+import { Component, useEffect, useMemo, useRef, useState, type ReactNode, type RefObject } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import {
   Html,
@@ -14,7 +14,13 @@ import type { MotionValue } from 'framer-motion'
 import * as THREE from 'three'
 import type { Project } from '../useGithubRepos'
 
-type SceneProps = { projects: Project[]; onSelect: (p: Project) => void; progress: MotionValue<number> }
+type SceneProps = {
+  projects: Project[]
+  onSelect: (p: Project) => void
+  progress: MotionValue<number>
+  /** The hero section; rendering pauses while it is off screen. */
+  hero: RefObject<HTMLElement | null>
+}
 
 /** Radial falloff texture: round soft particles and the core's glow halo. */
 function radialTexture(stops: [number, string][]) {
@@ -160,7 +166,7 @@ function Core({ low }: { low: boolean }) {
   return (
     <group>
       <mesh>
-        <icosahedronGeometry args={[0.78, 24]} />
+        <icosahedronGeometry args={[0.78, low ? 10 : 24]} />
         <MeshDistortMaterial
           color="#ff6b3d"
           emissive="#ff4d1a"
@@ -319,17 +325,28 @@ class WebGLBoundary extends Component<{ children: ReactNode }, { failed: boolean
   }
 }
 
-export default function Scene({ projects, onSelect, progress }: SceneProps) {
+export default function Scene({ projects, onSelect, progress, hero }: SceneProps) {
   const [hovered, setHovered] = useState<string | null>(null)
   const isTouch = useMemo(() => window.matchMedia('(pointer: coarse)').matches, [])
-  // Phones start in the lighter mode; desktops drop to it if the frame rate falls.
-  const [low, setLow] = useState(isTouch)
-  const [dpr, setDpr] = useState(isTouch ? 1.25 : 1.75)
+  // Phones and low-core machines start in the lighter mode; desktops drop to it if the frame rate falls.
+  const [low, setLow] = useState(isTouch || (navigator.hardwareConcurrency || 8) <= 4)
+  const [dpr, setDpr] = useState(isTouch ? 1 : 1.5)
+  const [onScreen, setOnScreen] = useState(true)
+
+  // Stop the render loop entirely once the hero has scrolled away.
+  useEffect(() => {
+    const el = hero.current
+    if (!el) return
+    const obs = new IntersectionObserver(([entry]) => setOnScreen(entry.isIntersecting))
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [hero])
 
   return (
     <WebGLBoundary>
       <Canvas
         className="scene"
+        frameloop={onScreen ? 'always' : 'never'}
         camera={{ position: [0, 3.6, 10.5], fov: 50 }}
         dpr={dpr}
         gl={{ antialias: false, powerPreference: 'high-performance' }}
@@ -349,7 +366,7 @@ export default function Scene({ projects, onSelect, progress }: SceneProps) {
 
         <Spin paused={hovered !== null}>
           <Core low={low} />
-          <Disc count={low ? 1800 : 5000} />
+          <Disc count={low ? 1200 : 5000} />
           {projects.map((p, i) => (
             <Planet
               key={p.name}
@@ -362,9 +379,9 @@ export default function Scene({ projects, onSelect, progress }: SceneProps) {
               onSelect={onSelect}
             />
           ))}
-          <Sparkles count={70} scale={14} size={2.2} speed={0.3} color="#ffd166" opacity={0.6} />
+          <Sparkles count={low ? 35 : 70} scale={14} size={2.2} speed={0.3} color="#ffd166" opacity={0.6} />
         </Spin>
-        <Stars radius={70} depth={45} count={low ? 1500 : 3000} factor={3} fade speed={0.6} />
+        <Stars radius={70} depth={45} count={low ? 1000 : 3000} factor={3} fade speed={0.6} />
 
         {!low && (
           <EffectComposer multisampling={0}>
