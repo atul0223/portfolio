@@ -13,7 +13,7 @@ export const profile = {
   ],
   bio: 'I build and ship web and mobile apps end to end — from React & React Native interfaces to secure Node.js APIs, Docker and cloud deployments.',
   summary: [
-    'Full Stack Engineer with 10+ months of professional experience building and shipping web and mobile applications using React, React Native (Expo), Node.js, Express, TypeScript and MongoDB.',
+    'Full Stack Engineer with 1 year of professional experience building and shipping web and mobile applications using React, React Native (Expo), Node.js, Express, TypeScript and MongoDB.',
     'I develop cross-platform Android/iOS apps and admin portals, design secure REST APIs with JWT and role-based access control, and own deployment end to end with Docker, Linux and cloud platforms (AWS, Render, Vercel). I care about clean, scalable code, performance and reliable production releases.',
   ],
   location: 'Meerut, Uttar Pradesh, India',
@@ -28,7 +28,7 @@ export const profile = {
 }
 
 export const stats = [
-  { value: '10+', label: 'months shipping in production' },
+  { value: '1', label: 'year shipping in production' },
   { value: '3', label: 'platforms — Android, iOS & Web' },
   { value: '6+', label: 'full-stack projects on GitHub' },
   { value: '2026', label: 'B.Tech CSE graduate' },
