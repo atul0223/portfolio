@@ -120,7 +120,7 @@ export const clientWork = [{
     },
     {
       name: 'Palm Maquette',
-      url: 'https://farah-merhi-sample-2.vercel.app/',
+      url: 'https://realestatesample-farah-merhi-websit-blue.vercel.app/',
       image: '/work/farah-merhi-2.jpg',
       mood: 'Light editorial',
       font: 'Instrument Serif + Geist',
@@ -129,7 +129,7 @@ export const clientWork = [{
     },
     {
       name: 'Maison Diamond',
-      url: 'https://farah-merhi-sample-3.vercel.app/',
+      url: 'https://realestatesample-farah-merhi-websit-three.vercel.app/',
       image: '/work/farah-merhi-3.jpg',
       mood: 'Emerald luxury',
       font: 'Bodoni Moda + Jost',
