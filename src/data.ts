@@ -214,6 +214,22 @@ export const clientWork = [{
       note: 'Warm outdoor photography opens a spacious editorial layout with an asymmetric product grid and a clean specifications section.',
     },
   ],
+}, {
+  client: 'SoBo Properties',
+  location: 'Mumbai, India',
+  brief:
+    'A website concept for a Mumbai property consultancy that matches people to neighbourhoods: a 3D architectural hero, guides to Worli, Malabar Hill, Lower Parel and Prabhadevi, and a property-brief builder that hands off to Instagram.',
+  concepts: [
+    {
+      name: 'Neighbourhood Edit',
+      url: 'https://soboproperties.vercel.app',
+      image: '/work/soboproperties-1.jpg',
+      mood: 'Light architectural',
+      font: 'Editorial sans + mono labels',
+      swatches: ['#e7eae1', '#1f4a3a', '#7f916b'],
+      note: 'Calm sage palette with 3D residential towers, neighbourhood guides and a brief builder for Instagram enquiries.',
+    },
+  ],
 }]
 
 export type ProjectMeta = {
@@ -298,6 +314,19 @@ export const projectMeta: Record<string, ProjectMeta> = {
     category: 'Web',
     liveUrl: 'https://demo-project-one-sigma.vercel.app',
   },
+  'The-last-LIE': {
+    title: 'The Last LIE: Infinite',
+    tagline: 'A mobile mystery game in progress, built on a deterministic case engine with server-side scoring and procedurally generated cases.',
+    highlights: [
+      'TypeScript monorepo (pnpm workspaces): case engine, authored content and a shared API contract',
+      'Deterministic case validation and server-authoritative scoring, so every solution can be checked fairly',
+      'Procedural case generation plus an authoring CLI to validate, generate, render and publish cases',
+      'Vitest test suites, ESLint, Prettier and GitHub Actions CI on every package',
+    ],
+    stack: ['TypeScript', 'Node.js', 'pnpm workspaces', 'Vitest', 'ESLint', 'GitHub Actions'],
+    category: 'Mobile',
+    liveUrl: null, // the mobile app is still being built
+  },
   'DemoTask3-': {
     title: 'Internship Screening Task',
     tagline: 'Screening task issued by Ideovent Technologies.',
@@ -319,4 +348,23 @@ export const hiddenRepos = new Set([
   'farah-merhi-samples',
   'air_gun_sample',
   'real_estate_sample',
+  'soboproperties',
 ])
+
+/** Live product work shown above the client concepts. */
+export const liveWork = {
+  name: 'AmaPlayer',
+  url: 'https://amaplayer.com',
+  image: '/work/amaplayer.jpg',
+  kind: 'Sports talent platform, India',
+  role: 'Redesigned the website and built its animations in code.',
+  about:
+    'Athletes build profiles, post practice videos and earn scout scores, while scouts, coaches and academies discover them. Web plus Android and iOS apps, with events, prizes and live cricket scores.',
+}
+
+/** Screenshot covers for repos that have one (others get a generated ASCII cover). */
+export const projectImages: Record<string, string> = {
+  LMS_mobile_application: '/projects/lms.jpg',
+  'Social-media-platform-V2': '/projects/lovechat.jpg',
+  'library-management-system': '/projects/library.jpg',
+}
